@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Verificador de Palíndromos</title>
+</head>
+
+<body>
+    <input type="text" id="myInput">
+    <button id="myButton">Verificar</button>
+    <p id="myParagraph"></p>
+
+    <script>
+        const input = document.getElementById('myInput');
+        const button = document.getElementById('myButton');
+        const paragraph = document.getElementById('myParagraph');
+
+        button.addEventListener('click', function () {
+            const valorInput = input.value.toLowerCase();
+            const valorReverso = valorInput.split('').reverse().join('');
+
+            if (valorInput === valorReverso) {
+                paragraph.innerText = `${valorInput} es un palíndromo.`;
+            } else {
+                paragraph.innerText = `${valorInput} no es un palíndromo.`;
+            }
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mayúsculas</title>
+</head>
+
+<body>
+    <label for="nombre">Nombre</label>
+    <input type="text" id="input" name="nombre" value="" placeholder="nombre">
+    <p id="paragraph"></p>
+    <button id="myButton">Mostrar en mayúsculas</button>
+
+    <script>
+        const input = document.getElementById('input');
+        const paragraph = document.getElementById('paragraph');        const button = document.getElementById('myButton');
+
+        button.addEventListener('click', function () {
+            const valorInput = input.value;
+            const valorMayusculas = valorInput.toUpperCase();
+            paragraph.innerText = valorMayusculas;
+        });
+    </script>
+</body>
+</html>
