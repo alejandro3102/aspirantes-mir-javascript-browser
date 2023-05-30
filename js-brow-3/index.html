@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Formulario y almacenamiento en localStorage</title>
+</head>
+
+<body>
+    <h1>Formulario y almacenamiento en localStorage</h1>
+
+    <h2>Guardar nombre y correo electrónico</h2>
+    <form id="userDataForm">
+        <label for="nameInput">Nombre:</label>
+        <input type="text" id="nameInput" required>
+        <label for="emailInput">Correo electrónico:</label>
+        <input type="email" id="emailInput" required>
+        <button type="submit">Guardar</button>
+    </form>
+
+    <h2>Datos guardados</h2>
+    <div id="userDataSection">
+        <p id="noDataMsg">No hay datos guardados.</p>
+        <p id="storedData"></p>
+        <button id="clearButton">Borrar datos</button>
+    </div>
+
+    <script>
+        // Obtener referencias a los elementos del DOM
+        const userDataForm = document.getElementById('userDataForm');
+        const nameInput = document.getElementById('nameInput');
+        const emailInput = document.getElementById('emailInput');
+        const storedData = document.getElementById('storedData');
+        const noDataMsg = document.getElementById('noDataMsg');
+        const clearButton = document.getElementById('clearButton');
+
+        // Función para guardar los datos en localStorage
+        function saveData(event) {
+            event.preventDefault(); // Evitar el comportamiento predeterminado del formulario
+
+            const name = nameInput.value;
+            const email = emailInput.value;
+
+            const userData = {
+                name: name,
+                email: email
+            };
+
+            localStorage.setItem('userData', JSON.stringify(userData));
+            showStoredData();
+            nameInput.value = '';
+            emailInput.value = '';
+        }
+
+        // Función para mostrar los datos guardados en localStorage
+        function showStoredData() {
+            const storedUserData = localStorage.getItem('userData');
+            if (storedUserData) {
+                const userData = JSON.parse(storedUserData);
+                storedData.innerHTML = `
+          <strong>Nombre:</strong> ${userData.name}<br>
+          <strong>Correo electrónico:</strong> ${userData.email}
+        `;
+                noDataMsg.style.display = 'none';
+                clearButton.style.display = 'inline-block';
+            } else {
+                storedData.textContent = '';
+                noDataMsg.style.display = 'block';
+                clearButton.style.display = 'none';
+            }
+        }
+
+        // Función para borrar los datos guardados en localStorage
+        function clearData() {
+            localStorage.removeItem('userData');
+            showStoredData();
+        }
+
+        // Evento de envío del formulario para guardar los datos
+        userDataForm.addEventListener('submit', saveData);
+
+        // Evento de clic en el botón de borrar datos
+        clearButton.addEventListener('click', clearData);
+
+        // Mostrar los datos guardados al cargar la página
+        window.addEventListener('DOMContentLoaded', showStoredData);
+    </script>
+</body>
+
+</html>
